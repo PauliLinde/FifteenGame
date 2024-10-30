@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -49,10 +48,6 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
         gameButtons.add(twelveButton); gameButtons.add(thirteenButton); gameButtons.add(fourteenButton);
         gameButtons.add(fifteenButton);
 
-        //Här tror jag att vi behöver anropa en metod som blandar siffrorna
-        //och då lägger till knapparna i den ordning som uppstår
-        //Ändring: metoden får anropas när användaren tryckt på "New game" knappen
-
         southPanel.add(newGameButton);
         newGameButton.addActionListener(this);
 
@@ -61,27 +56,6 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-        //Här testar jag att skapa en lista med knappar
-        /*LinkedList<JButton> buttons = new LinkedList<>();
-        buttons.add(emptyButton); buttons.add(oneButton); buttons.add(twoButton); buttons.add(threeButton);
-        buttons.add(fourteenButton); buttons.add(fiveButton); buttons.add(sixButton); buttons.add(sevenButton);
-        buttons.add(eightButton); buttons.add(nineButton); buttons.add(tenButton); buttons.add(elevenButton);
-        buttons.add(twelveButton); buttons.add(thirteenButton); buttons.add(fourteenButton); buttons.add(fifteenButton);
-*/
-        //Här går vi igenom listan med siffror, för att matcha med värdet av knappen
-        //För varje matchning, läggs knappen till i panelen
-        /*for(Logic number : numbers){
-            if(number.equals(0)){
-                northPanel.add(emptyButton);
-            }
-            for(JButton button : buttons){
-                if(number.equals(button.getText())){
-                    northPanel.add(button);
-                }
-            }
-        }*/
 
     }
     @Override
