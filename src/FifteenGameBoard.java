@@ -1,9 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
-public class FifteenGameBoard extends JFrame {
+public class FifteenGameBoard extends JFrame implements ActionListener {
 
     JPanel panel = new JPanel();
     JPanel northPanel = new JPanel();
@@ -51,27 +54,25 @@ public class FifteenGameBoard extends JFrame {
         //Ändring: metoden får anropas när användaren tryckt på "New game" knappen
 
         southPanel.add(newGameButton);
+        newGameButton.addActionListener(this);
 
         pack();
-        //eller setSize()?
+        setSize(300, 200);
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        //Testar att lägga till knappar med hjälp av scrambleMetoden
-
-
         //Här testar jag att skapa en lista med knappar
-        LinkedList<JButton> buttons = new LinkedList<>();
+        /*LinkedList<JButton> buttons = new LinkedList<>();
         buttons.add(emptyButton); buttons.add(oneButton); buttons.add(twoButton); buttons.add(threeButton);
         buttons.add(fourteenButton); buttons.add(fiveButton); buttons.add(sixButton); buttons.add(sevenButton);
         buttons.add(eightButton); buttons.add(nineButton); buttons.add(tenButton); buttons.add(elevenButton);
         buttons.add(twelveButton); buttons.add(thirteenButton); buttons.add(fourteenButton); buttons.add(fifteenButton);
-
+*/
         //Här går vi igenom listan med siffror, för att matcha med värdet av knappen
         //För varje matchning, läggs knappen till i panelen
-        for(Logic number : numbers){
+        /*for(Logic number : numbers){
             if(number.equals(0)){
                 northPanel.add(emptyButton);
             }
@@ -80,7 +81,26 @@ public class FifteenGameBoard extends JFrame {
                     northPanel.add(button);
                 }
             }
-        }
+        }*/
 
     }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == newGameButton) {
+            LinkedList<JButton> buttons = new LinkedList<>();
+            buttons.add(emptyButton); buttons.add(oneButton); buttons.add(twoButton); buttons.add(threeButton);
+            buttons.add(fourButton); buttons.add(fiveButton); buttons.add(sixButton); buttons.add(sevenButton);
+            buttons.add(eightButton); buttons.add(nineButton); buttons.add(tenButton); buttons.add(elevenButton);
+            buttons.add(twelveButton); buttons.add(thirteenButton); buttons.add(fourteenButton); buttons.add(fifteenButton);
+            Collections.shuffle(buttons);
+
+            northPanel.removeAll();
+            for(JButton button : buttons) {
+                northPanel.add(button);
+            }
+            northPanel.revalidate();
+            northPanel.repaint();
+        }
+    }
+
 }
