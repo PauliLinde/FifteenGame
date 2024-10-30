@@ -15,7 +15,7 @@ public class Logic {
     //Möjligen outputvariabel?
 
 
-    //Konstruktor som initierar listan och shufflar
+    //Konstruktor initierar listan och shufflar
     public Logic() {
         for (int i = 0; i <= 15; i++) {
             tilesList.add(i);
@@ -29,6 +29,7 @@ public class Logic {
     }
 
     //Metod för att kolla att draget är möjligt
+    //Ska empty vara en inparameter eller ska findEmpty anropas?
     public boolean validMove(int pushed, int empty) {
         if (pushed == empty - 1 && pushed % 4 != 0||
                 pushed == empty + 1 && pushed % 4 != 3 ||
