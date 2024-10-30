@@ -30,17 +30,22 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
     ButtonGroup gameButtons = new ButtonGroup();
 
     JButton newGameButton = new JButton("New Game");
+    JLabel winnerLabel = new JLabel("You won!");
 
 
     FifteenGameBoard() {
         add(panel);
         panel.setLayout(new BorderLayout());
+        //Vi har två paneler, en med spelknappar, och en med nytt spel-knappen
         panel.add(northPanel, BorderLayout.NORTH);
         panel.add(southPanel, BorderLayout.SOUTH);
 
         northPanel.setLayout(new GridLayout(4, 4));
         southPanel.setLayout(new FlowLayout());
 
+        //Alla spelknappar läggs till i en ButtonGroup
+        //Antingen så är det väldigt onödigt, eller så är det bra av nån anledning
+        //Kanske behövs om vi ska ha en ram runt knapparna?
         gameButtons.add(emptyButton); gameButtons.add(oneButton); gameButtons.add(twoButton);
         gameButtons.add(threeButton); gameButtons.add(fourButton); gameButtons.add(fiveButton);
         gameButtons.add(sixButton); gameButtons.add(sevenButton); gameButtons.add(eightButton);
@@ -61,6 +66,7 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == newGameButton) {
+            //Alla knappar läggs till i en lista
             LinkedList<JButton> buttons = new LinkedList<>();
             buttons.add(emptyButton); buttons.add(oneButton); buttons.add(twoButton); buttons.add(threeButton);
             buttons.add(fourButton); buttons.add(fiveButton); buttons.add(sixButton); buttons.add(sevenButton);
@@ -68,6 +74,7 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
             buttons.add(twelveButton); buttons.add(thirteenButton); buttons.add(fourteenButton); buttons.add(fifteenButton);
             Collections.shuffle(buttons);
 
+            //Vi börjar med att rensa panelen, sen lägger vi till knapparna
             northPanel.removeAll();
             for(JButton button : buttons) {
                 northPanel.add(button);
