@@ -45,9 +45,8 @@ public class Logic {
     }
 
     //Metod för speldrag (knapptryckning)
-    //Ska int empty vara en inparameter eller ska findEmpty anropas istället?
-    public void moveTile(int pushed, int empty) {
-        //int empty = findEmptyTile(); --- Förslag
+    public void moveTile(int pushed) {
+        int empty = findEmptyTile();
         if (validMove(pushed, empty)) {
             int indexPushed = tilesList.indexOf(pushed);
             int indexEmpty = tilesList.indexOf(empty);
@@ -55,7 +54,7 @@ public class Logic {
             tilesList.set(indexPushed, empty);
             tilesList.set(indexEmpty, pushed);
             countMoves();
-        } //Här skulle hantering av felaktigt drag kunna skrivas
+        } //Här skulle kod för hantering av felaktigt drag kunna skrivas
     }
 
     //Metod för counter av speldrag
