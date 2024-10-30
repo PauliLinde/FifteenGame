@@ -36,7 +36,11 @@ public class Logic {
     //Metod för speldrag (knapptryckning)
     public void moveTile(int pushed, int empty) {
         if (validMove(pushed, empty)) {
+            int indexPushed = tilesList.indexOf(pushed);
+            int indexEmpty = tilesList.indexOf(empty);
 
+            tilesList.set(indexPushed, empty);
+            tilesList.set(indexEmpty, pushed);
             countMoves();
         }
     }
