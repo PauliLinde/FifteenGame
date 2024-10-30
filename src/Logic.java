@@ -4,8 +4,8 @@ import java.util.List;
 
 /////////////////////////////////////////////////////////////
 ////// Metoder kvar: För redovisning (Snabb vinst) /////////
-/////                För att hitta tomma rutan?   /////////
-////                 För att kolla vinst?        /////////
+/////                För att kolla vinst?         /////////
+////                 Som meddelar vinst?         /////////
 /////////////////////////////////////////////////////////
 
 
@@ -28,8 +28,12 @@ public class Logic {
         Collections.shuffle(tilesList);
     }
 
+    //Metod för att hitta index av tomma rutan
+    public int findEmptyTile() {
+        return tilesList.indexOf(0);
+    }
+
     //Metod för att kolla att draget är möjligt
-    //Ska empty vara en inparameter eller ska findEmpty anropas?
     public boolean validMove(int pushed, int empty) {
         if (pushed == empty - 1 && pushed % 4 != 0||
                 pushed == empty + 1 && pushed % 4 != 3 ||
@@ -41,7 +45,9 @@ public class Logic {
     }
 
     //Metod för speldrag (knapptryckning)
+    //Ska int empty vara en inparameter eller ska findEmpty anropas istället?
     public void moveTile(int pushed, int empty) {
+        //int empty = findEmptyTile(); --- Förslag
         if (validMove(pushed, empty)) {
             int indexPushed = tilesList.indexOf(pushed);
             int indexEmpty = tilesList.indexOf(empty);
@@ -49,9 +55,8 @@ public class Logic {
             tilesList.set(indexPushed, empty);
             tilesList.set(indexEmpty, pushed);
             countMoves();
-        }
+        } //Här skulle hantering av felaktigt drag kunna skrivas
     }
-
 
     //Metod för counter av speldrag
     public void countMoves(){
