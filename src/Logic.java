@@ -2,24 +2,30 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/////////////////////////////////////////////////////////////
+////// Metoder kvar: För redovisning (Snabb vinst) /////////
+/////                För att hitta tomma rutan?   /////////
+////                 För att kolla vinst?        /////////
+/////////////////////////////////////////////////////////
+
+
 public class Logic {
-    List<Integer> tilesList = new LinkedList<>();
-    int counter = 0;
+    private final List<Integer> tilesList = new LinkedList<>();
+    private int counter = 0;
     //Möjligen outputvariabel?
 
 
-    //Konstruktor som initierar listan
+    //Konstruktor som initierar listan och shufflar
     public Logic() {
         for (int i = 0; i <= 15; i++) {
             tilesList.add(i);
         }
+        shuffleTiles();
     }
+
     //Shuffle metod
-    public List shuffleTiles() {
-        if (tilesList != null) {
-            Collections.shuffle(tilesList);
-        }
-        return tilesList;
+    public void shuffleTiles() {
+        Collections.shuffle(tilesList);
     }
 
     //Metod för att kolla att draget är möjligt
@@ -45,13 +51,21 @@ public class Logic {
         }
     }
 
-    //Metod för redovisning (Snabb vinst)
 
-
-    //Metod för counter av speldrag (Vill vi sära på den från moveTile?
-    // Går ju att lägga counter++ i moveTile-metoden. Men separation of concern osv?)
+    //Metod för counter av speldrag
     public void countMoves(){
         counter++;
     }
+
+    //För inkapsling
+    public int getCounter() {
+        return counter;
+    }
+
+    //För inkapsling
+    public List<Integer> getTilesList() {
+        return tilesList;
+    }
+
 
 }
