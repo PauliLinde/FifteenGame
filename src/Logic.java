@@ -32,27 +32,26 @@ public class Logic {
     public int findEmptyTile() {
         return tilesList.indexOf(0);
     }
-
-    //Metod för att kolla att draget är möjligt
+    //Metod för att kolla att draget är möjligt Delvis testad /Y
+    //Obs: Nu tar denna metod enbart in INDEX OF (tom) och tryckt knapp
     public boolean validMove(int pushed, int empty) {
-        if (pushed == empty - 1 && pushed % 4 != 0||
-                pushed == empty + 1 && pushed % 4 != 3 ||
-                pushed == empty - 4 && pushed >= 4 ||
-                pushed == empty + 4 && pushed <= 11) {
+        if (pushed == (empty + 1) && pushed % 4 != 0||
+                pushed == (empty - 1) && pushed % 4 != 3 ||
+                pushed == (empty - 4) && pushed >= 4 ||
+                pushed == (empty + 4) && pushed <= 11) {
             return true;
         }
         return false;
     }
-
-    //Metod för speldrag (knapptryckning)
+    //Metod för speldrag (knapptryckning)    Delvis testad /Y
+    //pushed är nu talet som står i knappen. indexEmpty och indexPusched är idnex of 0 resp. tryckt knapp.
     public void moveTile(int pushed) {
-        int empty = findEmptyTile();
-        if (validMove(pushed, empty)) {
-            int indexPushed = tilesList.indexOf(pushed);
-            int indexEmpty = tilesList.indexOf(empty);
+        int indexEmpty = findEmptyTile();
+        int indexPushed = tilesList.indexOf(pushed);
+        if (validMove(indexPushed, indexEmpty)) {
 
-            tilesList.set(indexPushed, empty);
-            tilesList.set(indexEmpty, pushed);
+            Collections.swap(tilesList, indexPushed, indexEmpty);
+
             countMoves();
         } //Här skulle kod för hantering av felaktigt drag kunna skrivas
     }
