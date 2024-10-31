@@ -1,25 +1,30 @@
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Comparator;
 
 /////////////////////////////////////////////////////////////
 ////// Metoder kvar: För redovisning (Snabb vinst) /////////
-/////                För att kolla vinst?         /////////
+/////                                             /////////
 ////                 Som meddelar vinst?         /////////
 /////////////////////////////////////////////////////////
 
 
 public class Logic {
     private final List<Integer> tilesList = new LinkedList<>();
+    private final List<Integer> solutionList = new LinkedList<>();
     private int counter = 0;
     //Möjligen outputvariabel?
 
 
-    //Konstruktor initierar listan och shufflar
+    //Konstruktor initierar tileslistan och facitlistan och shufflar tileslistan
+    //16 är tom ruta
     public Logic() {
-        for (int i = 0; i <= 15; i++) {
+        for (int i = 1; i <= 16; i++) {
             tilesList.add(i);
+            solutionList.add(i);
         }
+
         shuffleTiles();
     }
 
@@ -30,7 +35,7 @@ public class Logic {
 
     //Metod för att hitta index av tomma rutan
     public int findEmptyTile() {
-        return tilesList.indexOf(0);
+        return tilesList.indexOf(16);
     }
 
     //Metod för att kolla att draget är möjligt
@@ -50,11 +55,21 @@ public class Logic {
         if (validMove(pushed, empty)) {
             int indexPushed = tilesList.indexOf(pushed);
             int indexEmpty = tilesList.indexOf(empty);
+            //Ersatte tidigare rader med metod swap för att jag blev osäker på om det fungerade med de tidigare raderna efter varandra
+            Collections.swap(tilesList, indexPushed, indexEmpty);
 
-            tilesList.set(indexPushed, empty);
-            tilesList.set(indexEmpty, pushed);
             countMoves();
         } //Här skulle kod för hantering av felaktigt drag kunna skrivas
+    }
+
+    //Metod för att kolla vinst, returnerar boolean
+    public boolean checkWinning(){
+        boolean won = false;
+
+        if (tilesList.equals(solutionList)) {
+            won = true;
+        }
+        return won;
     }
 
     //Metod för counter av speldrag
@@ -71,6 +86,4 @@ public class Logic {
     public List<Integer> getTilesList() {
         return tilesList;
     }
-
-
 }
