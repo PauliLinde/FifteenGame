@@ -26,7 +26,7 @@ public class Logic {
         }
         shuffleTiles();
     }
-    //Konstruktor för easy win
+    //Konstruktor för easy win          Testat! /Y
     public Logic(boolean easyWin) {
         for (int i = 1; i <= 16; i++) {
             tilesList.add(i);
@@ -48,25 +48,26 @@ public class Logic {
         return tilesList.indexOf(16);
     }
 
-    //Metod för att kolla att draget är möjlig
+    //Metod för att kolla att draget är möjlig      Delvis testad /Y
+    //Obs: Nu tar denna metod enbart in INDEX OF 16 (tom) och tryckt knapp.
     public boolean validMove(int pushed, int empty) {
 
-        if (pushed == empty - 1 && pushed % 4 != 0||
-                pushed == empty + 1 && pushed % 4 != 3 ||
-                pushed == empty - 4 && pushed >= 4 ||
-                pushed == empty + 4 && pushed <= 11) {
+        if (pushed == (empty + 1) && pushed % 4 != 0 ||
+                pushed == (empty - 1) && pushed % 4 != 3 ||
+                pushed == (empty - 4) && pushed >= 4 ||
+                pushed == (empty + 4) && pushed <= 11) {
             return true;
         }
         return false;
     }
 
-    //Metod för speldrag (knapptryckning)
+    //Metod för speldrag (knapptryckning)       Delvis testad /Y
+    //pushed är nu talet som står i knappen. indexEmpty och indexPusched är idnex of 16 resp. tryckt knapp.
     public void moveTile(int pushed) {
-        int empty = findEmptyTile();
-        if (validMove(pushed, empty)) {
-            int indexPushed = tilesList.indexOf(pushed);
-            int indexEmpty = tilesList.indexOf(empty);
-            //Ersatte tidigare rader med metod swap för att jag blev osäker på om det fungerade med de tidigare raderna efter varandra
+        int indexEmpty = findEmptyTile();
+        int indexPushed = tilesList.indexOf(pushed);
+
+        if (validMove(indexPushed, indexEmpty)) {
 
             Collections.swap(tilesList, indexPushed, indexEmpty);
 
