@@ -2,19 +2,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-/////////////////////////////////////////////////////////////
-////// Metoder kvar: För redovisning (Snabb vinst) /////////
-/////                                             /////////
-////                 Som meddelar vinst?         /////////
-/////////////////////////////////////////////////////////
-
-
 public class Logic {
     private final List<Integer> tilesList = new LinkedList<>();
     private final List<Integer> solutionList = new LinkedList<>();
 
     private int counter = 0;
-    //Möjligen outputvariabel?
 
 
     //Konstruktor initierar tileslistan och facitlistan och shufflar tileslistan
@@ -50,12 +42,17 @@ public class Logic {
 
     //Metod för att kolla att draget är möjlig      Delvis testad /Y
     //Obs: Nu tar denna metod enbart in INDEX OF 16 (tom) och tryckt knapp.
-    public boolean validMove(int pushed, int empty) {
+    public boolean validMove(int pushed) {
+        countMoves();
+        int indexEmpty = findEmptyTile();
+        int indexPushed = tilesList.indexOf(pushed);
 
-        if (pushed == (empty + 1) && pushed % 4 != 0 ||
-                pushed == (empty - 1) && pushed % 4 != 3 ||
-                pushed == (empty - 4) && pushed >= 4 ||
-                pushed == (empty + 4) && pushed <= 11) {
+        if (pushed == (indexEmpty + 1) && indexPushed % 4 != 0 ||
+                pushed == (indexEmpty - 1) && indexPushed % 4 != 3 ||
+                pushed == (indexEmpty - 4) && indexPushed >= 4 ||
+                pushed == (indexEmpty + 4) && indexPushed <= 11) {
+
+            moveTile(indexPushed, indexEmpty);
             return true;
         }
         return false;
@@ -63,16 +60,8 @@ public class Logic {
 
     //Metod för speldrag (knapptryckning)       Delvis testad /Y
     //pushed är nu talet som står i knappen. indexEmpty och indexPusched är idnex of 16 resp. tryckt knapp.
-    public void moveTile(int pushed) {
-        int indexEmpty = findEmptyTile();
-        int indexPushed = tilesList.indexOf(pushed);
-
-        if (validMove(indexPushed, indexEmpty)) {
-
-            Collections.swap(tilesList, indexPushed, indexEmpty);
-
-            countMoves();
-        } //Här skulle kod för hantering av felaktigt drag kunna skrivas
+    public void moveTile(int indexPushed, int indexEmpty) {
+        Collections.swap(tilesList, indexPushed, indexEmpty);
     }
 
     //Metod för att kolla vinst, returnerar boolean     Testat! /Y
