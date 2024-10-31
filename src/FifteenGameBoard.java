@@ -1,10 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-public class FifteenGameBoard extends JFrame implements ActionListener {
+public class FifteenGameBoard extends JFrame {
 
     Logic logic;
     boolean easyWin;
@@ -17,18 +15,31 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
         fiveButton = new JButton(), sixButton = new JButton(), sevenButton = new JButton(), eightButton = new JButton(),
         nineButton = new JButton(), tenButton = new JButton(), elevenButton = new JButton(), twelveButton = new JButton(),
         thirteenButton = new JButton(), fourteenButton = new JButton(), fifteenButton = new JButton(), emptyButton = new JButton();
-    ButtonGroup gameButtons = new ButtonGroup();
+
 
     JButton newGameButton = new JButton("New Game");
     JLabel winnerLabel = new JLabel("You won!");
 
+    LinkedList<JButton> buttons = new LinkedList<>();
+
     FifteenGameBoard(boolean easyWin) {
         this.easyWin = easyWin;
 
-        panel.setLayout(new BorderLayout());
         //Vi har två paneler, en med spelknappar, och en med nytt spel-knappen
+        panel.setLayout(new BorderLayout());
         panel.add(buttonPanel, BorderLayout.NORTH);
         panel.add(southPanel, BorderLayout.SOUTH);
+
+        buttons.add(oneButton); buttons.add(twoButton); buttons.add(threeButton); buttons.add(fourButton);
+        buttons.add(fiveButton); buttons.add(sixButton); buttons.add(sevenButton); buttons.add(eightButton);
+        buttons.add(nineButton); buttons.add(tenButton); buttons.add(elevenButton); buttons.add(twelveButton);
+        buttons.add(thirteenButton); buttons.add(fourteenButton); buttons.add(fifteenButton); buttons.add(emptyButton);
+
+        //Här sätter jag actionlistner och gör lambda-anrop till metoden moveAction(button)
+        for(JButton button : buttons) {
+            button.addActionListener(l -> moveAction(button));
+            buttonPanel.add(button);
+        }
 
         buttonPanel.setLayout(new GridLayout(4, 4));
         buttonPanel.setPreferredSize(new Dimension(500, 500));
@@ -44,25 +55,27 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
         pack();
 
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public void moveAction(JButton button) {
+        //Hämta värde och kontrolera om värdet är ok:
+        int numberInPlay = Integer.parseInt(button.getText());
+        boolean validMove = logic.validMove(numberInPlay);
+
+        //Tillfälliga tskrifter för att kontrollera att det funkar:
+        System.out.println(numberInPlay);
+        System.out.println(validMove);
+
+        //Vad göra med ValidMove?
+
+        //Hur byta värde med metoden moveTile?
 
     }
     public void newGameAction() {
         logic = new Logic(easyWin);
-        LinkedList<JButton> buttons = new LinkedList<>();
-
-        buttons.add(oneButton); buttons.add(twoButton); buttons.add(threeButton); buttons.add(fourButton);
-        buttons.add(fiveButton); buttons.add(sixButton); buttons.add(sevenButton); buttons.add(eightButton);
-        buttons.add(nineButton); buttons.add(tenButton); buttons.add(elevenButton); buttons.add(twelveButton);
-        buttons.add(thirteenButton); buttons.add(fourteenButton); buttons.add(fifteenButton); buttons.add(emptyButton);
 
         int i = 0;
         for(JButton button : buttons) {
-            buttonPanel.add(button);
             if (i != logic.findEmptyTile())
                 button.setText(logic.getTilesList().get(i).toString());
-
             i++;
         }
         buttonPanel.revalidate();
