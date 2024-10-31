@@ -2,52 +2,105 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/////////////////////////////////////////////////////////////
+////// Metoder kvar: För redovisning (Snabb vinst) /////////
+/////                                             /////////
+////                 Som meddelar vinst?         /////////
+/////////////////////////////////////////////////////////
+
+
 public class Logic {
-    List<Integer> tilesList = new LinkedList<>();
-    int counter = 0;
+    private final List<Integer> tilesList = new LinkedList<>();
+    private final List<Integer> solutionList = new LinkedList<>();
+
+    private int counter = 0;
     //Möjligen outputvariabel?
 
 
-    //Konstruktor som initierar listan
+    //Konstruktor initierar tileslistan och facitlistan och shufflar tileslistan
+    //16 är tom ruta        Testat! /Y
     public Logic() {
-        for (int i = 0; i <= 15; i++) {
+        for (int i = 1; i <= 16; i++) {
             tilesList.add(i);
+            solutionList.add(i);
         }
+        shuffleTiles();
     }
-    //Shuffle metod
-    public List shuffleTiles() {
-        if (tilesList != null) {
-            Collections.shuffle(tilesList);
+    //Konstruktor för easy win          Testat! /Y
+    public Logic(boolean easyWin) {
+        for (int i = 1; i <= 16; i++) {
+            tilesList.add(i);
+            solutionList.add(i);
         }
-        return tilesList;
+        if (easyWin) {
+            Collections.swap(tilesList, 14 , 15 );
+        }else
+            shuffleTiles();
     }
 
-    //Metod för att kolla att draget är möjligt
+    //Shuffle metod         Testat! /Y
+    public void shuffleTiles() {
+        Collections.shuffle(tilesList);
+    }
+
+    //Metod för att hitta index av tomma rutan      Testat! /Y
+    public int findEmptyTile() {
+        return tilesList.indexOf(16);
+    }
+
+    //Metod för att kolla att draget är möjlig      Delvis testad /Y
+    //Obs: Nu tar denna metod enbart in INDEX OF 16 (tom) och tryckt knapp.
     public boolean validMove(int pushed, int empty) {
-        if (pushed == empty - 1 && pushed % 4 != 0||
-                pushed == empty + 1 && pushed % 4 != 3 ||
-                pushed == empty - 4 && pushed >= 4 ||
-                pushed == empty + 4 && pushed <= 11) {
+
+        if (pushed == (empty + 1) && pushed % 4 != 0 ||
+                pushed == (empty - 1) && pushed % 4 != 3 ||
+                pushed == (empty - 4) && pushed >= 4 ||
+                pushed == (empty + 4) && pushed <= 11) {
             return true;
         }
         return false;
     }
 
-    //Metod för speldrag (knapptryckning)
-    public void moveTile(int pushed, int empty) {
-        if (validMove(pushed, empty)) {
+    //Metod för speldrag (knapptryckning)       Delvis testad /Y
+    //pushed är nu talet som står i knappen. indexEmpty och indexPusched är idnex of 16 resp. tryckt knapp.
+    public void moveTile(int pushed) {
+        int indexEmpty = findEmptyTile();
+        int indexPushed = tilesList.indexOf(pushed);
+
+        if (validMove(indexPushed, indexEmpty)) {
+
+            Collections.swap(tilesList, indexPushed, indexEmpty);
 
             countMoves();
-        }
+        } //Här skulle kod för hantering av felaktigt drag kunna skrivas
     }
 
-    //Metod för redovisning (Snabb vinst)
+    //Metod för att kolla vinst, returnerar boolean     Testat! /Y
+    public boolean checkWinning(){
+        boolean won = false;
 
+        if (tilesList.equals(solutionList)) {
+            won = true;
+        }
+        return won;
+    }
 
-    //Metod för counter av speldrag (Vill vi sära på den från moveTile?
-    // Går ju att lägga counter++ i moveTile-metoden. Men separation of concern osv?)
+    //Metod för counter av speldrag
     public void countMoves(){
         counter++;
     }
 
+    //För inkapsling
+    public int getCounter() {
+        return counter;
+    }
+
+    //För inkapsling
+    public List<Integer> getTilesList() {
+        return tilesList;
+    }
+    //För testning
+    public List<Integer> getSolutionList() {
+        return solutionList;
+    }
 }
