@@ -1,5 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-        FifteenGameBoard board = new FifteenGameBoard();
+        FifteenGameBoard board = new FifteenGameBoard(true);
     }
 }
