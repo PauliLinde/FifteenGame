@@ -27,7 +27,6 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
     JButton thirteenButton = new JButton("13");
     JButton fourteenButton = new JButton("14");
     JButton fifteenButton = new JButton("15");
-    ButtonGroup gameButtons = new ButtonGroup();
 
     JButton newGameButton = new JButton("New Game");
     JLabel winnerLabel = new JLabel("You won!");
@@ -42,16 +41,6 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
 
         northPanel.setLayout(new GridLayout(4, 4));
         southPanel.setLayout(new FlowLayout());
-
-        //Alla spelknappar läggs till i en ButtonGroup
-        //Antingen så är det väldigt onödigt, eller så är det bra av nån anledning
-        //Kanske behövs om vi ska ha en ram runt knapparna?
-        gameButtons.add(emptyButton); gameButtons.add(oneButton); gameButtons.add(twoButton);
-        gameButtons.add(threeButton); gameButtons.add(fourButton); gameButtons.add(fiveButton);
-        gameButtons.add(sixButton); gameButtons.add(sevenButton); gameButtons.add(eightButton);
-        gameButtons.add(nineButton); gameButtons.add(tenButton); gameButtons.add(elevenButton);
-        gameButtons.add(twelveButton); gameButtons.add(thirteenButton); gameButtons.add(fourteenButton);
-        gameButtons.add(fifteenButton);
 
         southPanel.add(newGameButton);
         newGameButton.addActionListener(this);
