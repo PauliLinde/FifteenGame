@@ -7,10 +7,10 @@ import java.util.LinkedList;
 public class FifteenGameBoard extends JFrame implements ActionListener {
 
     Logic logic;
-    //boolean easyWin;
+    boolean easyWin;
+
     JPanel panel = new JPanel();
-    //Knapppanel:
-    JPanel northPanel = new JPanel();
+    JPanel buttonPanel = new JPanel();
     JPanel southPanel = new JPanel();
 
     JButton oneButton = new JButton(), twoButton = new JButton(), threeButton = new JButton(), fourButton = new JButton(),
@@ -22,25 +22,16 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
     JButton newGameButton = new JButton("New Game");
     JLabel winnerLabel = new JLabel("You won!");
 
-    FifteenGameBoard() {
+    FifteenGameBoard(boolean easyWin) {
+        this.easyWin = easyWin;
 
         panel.setLayout(new BorderLayout());
         //Vi har två paneler, en med spelknappar, och en med nytt spel-knappen
-        panel.add(northPanel, BorderLayout.NORTH);
+        panel.add(buttonPanel, BorderLayout.NORTH);
         panel.add(southPanel, BorderLayout.SOUTH);
 
-        northPanel.setLayout(new GridLayout(4, 4));
+        buttonPanel.setLayout(new GridLayout(4, 4));
         southPanel.setLayout(new FlowLayout());
-
-        //Alla spelknappar läggs till i en ButtonGroup
-        //Antingen så är det väldigt onödigt, eller så är det bra av nån anledning
-        //Kanske behövs om vi ska ha en ram runt knapparna?
-        gameButtons.add(emptyButton); gameButtons.add(oneButton); gameButtons.add(twoButton);
-        gameButtons.add(threeButton); gameButtons.add(fourButton); gameButtons.add(fiveButton);
-        gameButtons.add(sixButton); gameButtons.add(sevenButton); gameButtons.add(eightButton);
-        gameButtons.add(nineButton); gameButtons.add(tenButton); gameButtons.add(elevenButton);
-        gameButtons.add(twelveButton); gameButtons.add(thirteenButton); gameButtons.add(fourteenButton);
-        gameButtons.add(fifteenButton);
 
         southPanel.add(newGameButton);
         newGameButton.addActionListener(l -> newGameAction());
@@ -57,7 +48,7 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
 
     }
     public void newGameAction() {
-        logic = new Logic();
+        logic = new Logic(easyWin);
         LinkedList<JButton> buttons = new LinkedList<>();
 
         buttons.add(oneButton); buttons.add(twoButton); buttons.add(threeButton); buttons.add(fourButton);
@@ -67,13 +58,13 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
 
         int i = 0;
         for(JButton button : buttons) {
-            northPanel.add(button);
+            buttonPanel.add(button);
             if (i != logic.findEmptyTile())
                 button.setText(logic.getTilesList().get(i).toString());
 
             i++;
         }
-        northPanel.revalidate();
-        northPanel.repaint();
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
     }
 }
