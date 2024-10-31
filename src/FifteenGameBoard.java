@@ -31,16 +31,17 @@ public class FifteenGameBoard extends JFrame implements ActionListener {
         panel.add(southPanel, BorderLayout.SOUTH);
 
         buttonPanel.setLayout(new GridLayout(4, 4));
+        buttonPanel.setPreferredSize(new Dimension(500, 500));
         southPanel.setLayout(new FlowLayout());
 
         southPanel.add(newGameButton);
         newGameButton.addActionListener(l -> newGameAction());
 
         add(panel);
-        setSize(300, 200);
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
 
     }
     @Override
