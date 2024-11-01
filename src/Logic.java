@@ -9,15 +9,6 @@ public class Logic {
     private int counter = 0;
 
 
-    //Konstruktor initierar tileslistan och facitlistan och shufflar tileslistan
-    //16 är tom ruta        Testat! /Y
-    public Logic() {
-        for (int i = 1; i <= 16; i++) {
-            tilesList.add(i);
-            solutionList.add(i);
-        }
-        shuffleTiles();
-    }
     //Konstruktor för easy win          Testat! /Y
     public Logic(boolean easyWin) {
         for (int i = 1; i <= 16; i++) {
@@ -47,10 +38,10 @@ public class Logic {
         int indexEmpty = findEmptyTile();
         int indexPushed = tilesList.indexOf(pushed);
 
-        if (pushed == (indexEmpty + 1) && indexPushed % 4 != 0 ||
-                pushed == (indexEmpty - 1) && indexPushed % 4 != 3 ||
-                pushed == (indexEmpty - 4) && indexPushed >= 4 ||
-                pushed == (indexEmpty + 4) && indexPushed <= 11) {
+        if (indexPushed == (indexEmpty + 1) && indexPushed % 4 != 0 ||
+                indexPushed == (indexEmpty - 1) && indexPushed % 4 != 3 ||
+                indexPushed == (indexEmpty - 4) ||
+                indexPushed == (indexEmpty + 4)) {
 
             moveTile(indexPushed, indexEmpty);
 
@@ -81,11 +72,6 @@ public class Logic {
     }
 
     //För inkapsling
-    public int getCounter() {
-        return counter;
-    }
-
-    //För inkapsling
     public List<Integer> getTilesList() {
         return tilesList;
     }
@@ -93,4 +79,10 @@ public class Logic {
     public List<Integer> getSolutionList() {
         return solutionList;
     }
+
+    //För inkapsling
+    public int getCounter() {
+        return counter;
+    }
+
 }
