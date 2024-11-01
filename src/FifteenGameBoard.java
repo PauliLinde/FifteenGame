@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 public class FifteenGameBoard extends JFrame {
@@ -7,7 +8,7 @@ public class FifteenGameBoard extends JFrame {
     private Logic logic;
     private boolean easyWin;
 
-    private final JPanel panel = new JPanel();
+    private final JPanel basePanel = new JPanel();
     private final JPanel labelPanel = new JPanel();
     private final JPanel tilePanel = new JPanel();
     private final JPanel newGamePanel = new JPanel();
@@ -23,10 +24,10 @@ public class FifteenGameBoard extends JFrame {
     public FifteenGameBoard(boolean easyWin) {
         this.easyWin = easyWin;
 
-        panel.setLayout(new BorderLayout());
-        panel.add(labelPanel, BorderLayout.NORTH);
-        panel.add(tilePanel, BorderLayout.CENTER);
-        panel.add(newGamePanel, BorderLayout.SOUTH);
+        basePanel.setLayout(new BorderLayout());
+        basePanel.add(labelPanel, BorderLayout.NORTH);
+        basePanel.add(tilePanel, BorderLayout.CENTER);
+        basePanel.add(newGamePanel, BorderLayout.SOUTH);
 
         for (int i = 0; i < 16; i ++){
             JButton newButton = new JButton();
@@ -44,7 +45,7 @@ public class FifteenGameBoard extends JFrame {
         labelPanel.setLayout(new GridLayout(1,2));
         labelPanel.add(messageLabel); labelPanel.add(counterLabel);
 
-        add(panel);
+        add(basePanel);
         setVisible(true);
         pack();
         setLocationRelativeTo(null);
@@ -59,25 +60,29 @@ public class FifteenGameBoard extends JFrame {
             int indexPushed = buttons.indexOf(button);
 
             if (logic.validMove(indexPushed)) {
-                setBoard();
+
                 messageLabel.setText(null);
             }
             else{
                 messageLabel.setText(" Invalid move");
             }
+
         }
         else{
             messageLabel.setText(" Only numbered tiles can be clicked");
         }
+
+        setBoard();
     }
     public void newGameAction() {
         logic = new Logic(easyWin);
-
         tilePanel.removeAll();
         messageLabel.setText(" ");
-        counterLabel.setText(" ");
+        counterLabel.setText("Moves: 0");
 
         for(JButton button : buttons) {
+            for (ActionListener al : button.getActionListeners())
+                button.removeActionListener(al);
             button.setEnabled(true);
             button.addActionListener(l -> moveAction(button));
             tilePanel.add(button);
@@ -122,6 +127,9 @@ public class FifteenGameBoard extends JFrame {
             tilePanel.add(winnerLabel);
             winnerLabel.setFont(new Font("Serif", Font.BOLD, 100));
             winnerLabel.setForeground(Color.RED);
+
+            tilePanel.revalidate();
+            tilePanel.repaint();
         });
         timer.setRepeats(false);
         timer.start();

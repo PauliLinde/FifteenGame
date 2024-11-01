@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Logic {
-    //Listorna består av Tiles
+
     private final List<Tile> tilesList = new LinkedList<>();
     private final List<Tile> solutionList = new LinkedList<>();
 
@@ -43,22 +43,19 @@ public class Logic {
         Collections.shuffle(tilesList);
     }
 
-    //Metod för att hitta index av tomma rutan      Testat! /Y
     public int findEmptyTile() {
 
         for (Tile tile : tilesList) {
             if (tile.getTileNumber() == 16) {
 
-                System.out.println(tilesList.indexOf(tile));
                 return tilesList.indexOf(tile);
             }
         }
             return -1;
     }
 
-    //Obs: Nu tar denna metod enbart in INDEX OF tryckt knapp
     public boolean validMove(int indexPushed) {
-        countMoves();
+
         int indexEmpty = findEmptyTile();
 
         if (indexPushed == (indexEmpty + 1) && indexPushed % 4 != 0 ||
@@ -77,7 +74,6 @@ public class Logic {
         Collections.swap(tilesList, indexPushed, indexEmpty);
     }
 
-    //Metod för att kolla vinst, returnerar boolean     Testat! /Y
     public boolean checkWinning(){
         boolean won = false;
 
@@ -87,23 +83,15 @@ public class Logic {
         return won;
     }
 
-    //Metod för counter av speldrag
     public void countMoves(){
         counter++;
     }
 
-    //För inkapsling
     public List<Tile> getTilesList() {
         return tilesList;
     }
-    //För testning
-    public List<Tile> getSolutionList() {
-        return solutionList;
-    }
 
-    //För inkapsling
     public int getCounter() {
         return counter;
     }
-
 }
