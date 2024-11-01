@@ -59,9 +59,9 @@ public class FifteenGameBoard extends JFrame {
     public void moveAction(JButton button) {
 
         if (button.getText() != null) {
-            int numberInPlay = Integer.parseInt(button.getText());
+            int indexPushed = buttons.indexOf(button);
 
-            if (logic.validMove(numberInPlay)) {
+            if (logic.validMove(indexPushed)) {
                 setBoard();
             }//else //Visa invalidMoveLabel
         }//else // Visa pushedEmptyLabel
@@ -76,15 +76,18 @@ public class FifteenGameBoard extends JFrame {
             buttonPanel.add(button);
         }
         setBoard();
-
     }
 
     public void setBoard(){
         int i = 0;
         for(JButton button : buttons) {
             button.setText(null);
+            Tile tempTile = logic.getTilesList().get(i);
+            button.setBackground(tempTile.getTileColor());
             if (i != logic.findEmptyTile())
-                button.setText(logic.getTilesList().get(i).toString());
+                button.setText(String.valueOf(tempTile.getTileNumber()));
+                button.setForeground(Color.WHITE);
+                button.setFont(new Font("Serif", Font.BOLD, 40));
             i++;
         }
         buttonPanel.revalidate();
@@ -97,8 +100,9 @@ public class FifteenGameBoard extends JFrame {
     }
     //Metod för win-action
     public void win(){
-
+        buttons.get(15).setBackground(Color.RED);
         for(JButton button : buttons) {
+            button.setText(null);
             button.setEnabled(false);
         }
         //visa winnerLabel
