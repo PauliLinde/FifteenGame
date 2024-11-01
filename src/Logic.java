@@ -85,9 +85,12 @@ public class Logic {
     }
 
     public void countMoves(){
-        ++counter;
+        counter++;
     }
 
+    public void resetCounter() {
+        this.counter = 0;
+    }
 
     public List<Tile> getTilesList() {
         return tilesList;

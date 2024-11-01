@@ -78,7 +78,7 @@ public class FifteenGameBoard extends JFrame {
 
         tilePanel.removeAll();
         messageLabel.setText(" ");
-        counterLabel.setText("Moves: " + logic.getCounter());;
+        counterLabel.setText("Moves: 0");;
 
         for(JButton button : buttons) {
             button.setEnabled(true);
