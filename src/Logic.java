@@ -53,6 +53,7 @@ public class Logic {
                 pushed == (indexEmpty + 4) && indexPushed <= 11) {
 
             moveTile(indexPushed, indexEmpty);
+
             return true;
         }
         return false;
