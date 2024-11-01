@@ -18,7 +18,10 @@ public class FifteenGameBoard extends JFrame {
 
 
     JButton newGameButton = new JButton("New Game");
+
     JLabel winnerLabel = new JLabel("You won!");
+    JLabel invalidMoveLabel = new JLabel("Invalid move");
+    JLabel pushedEmptyLabel = new JLabel("Only numbered tiles can be clicked.");
 
     LinkedList<JButton> buttons = new LinkedList<>();
 
@@ -35,12 +38,6 @@ public class FifteenGameBoard extends JFrame {
         buttons.add(nineButton); buttons.add(tenButton); buttons.add(elevenButton); buttons.add(twelveButton);
         buttons.add(thirteenButton); buttons.add(fourteenButton); buttons.add(fifteenButton); buttons.add(emptyButton);
 
-        //Här sätter jag actionlistner och gör lambda-anrop till metoden moveAction(button)
-        for(JButton button : buttons) {
-            button.addActionListener(l -> moveAction(button));
-            buttonPanel.add(button);
-        }
-
         buttonPanel.setLayout(new GridLayout(4, 4));
         buttonPanel.setPreferredSize(new Dimension(500, 500));
         southPanel.setLayout(new FlowLayout());
@@ -56,18 +53,22 @@ public class FifteenGameBoard extends JFrame {
 
     }
     public void moveAction(JButton button) {
-        //Hämta värde och kontrolera om värdet är ok:
-        int numberInPlay = Integer.parseInt(button.getText());
 
-        if (logic.validMove(numberInPlay)) {
-            setBoard();
-        }else{
-            //invalid move
-        }
+        if (button.getText() != null) {
+            int numberInPlay = Integer.parseInt(button.getText());
+
+            if (logic.validMove(numberInPlay)) {
+                setBoard();
+            }//else //Visa invalidMoveLabel
+        }//else // Visa pushedEmptyLabel
     }
     public void newGameAction() {
         logic = new Logic(easyWin);
-
+        //Här sätter jag actionlistner och gör lambda-anrop till metoden moveAction(button)
+        for(JButton button : buttons) {
+            button.addActionListener(l -> moveAction(button));
+            buttonPanel.add(button);
+        }
         setBoard();
 
     }
@@ -82,5 +83,23 @@ public class FifteenGameBoard extends JFrame {
         }
         buttonPanel.revalidate();
         buttonPanel.repaint();
+
+        if (logic.checkWinning()){
+            //Anropa vinstmetod?
+            win();
+        }
+    }
+    //Metod för win-action
+    public void win(){
+        //Test
+        System.out.println("win");
+        //visa winnerLabel
+        for(JButton button : buttons) {
+            button.removeActionListener(l -> moveAction(button));
+        }
+
+        buttonPanel.revalidate();
+        buttonPanel.repaint();
+
     }
 }
