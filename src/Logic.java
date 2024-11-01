@@ -42,8 +42,8 @@ public class Logic {
 
         if (indexPushed == (indexEmpty + 1) && indexPushed % 4 != 0 ||
                 indexPushed == (indexEmpty - 1) && indexPushed % 4 != 3 ||
-                indexPushed == (indexEmpty - 4) && indexPushed >= 4 ||
-                indexPushed == (indexEmpty + 4) && indexPushed <= 11) {
+                indexPushed == (indexEmpty - 4) ||
+                indexPushed == (indexEmpty + 4)) {
 
             moveTile(indexPushed, indexEmpty);
             return true;
