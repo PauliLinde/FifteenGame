@@ -58,11 +58,22 @@ public class FifteenGameBoard extends JFrame {
     public void moveAction(JButton button) {
         //Hämta värde och kontrolera om värdet är ok:
         int numberInPlay = Integer.parseInt(button.getText());
-        boolean validMove = logic.validMove(numberInPlay);
+        //boolean validMove = logic.validMove(numberInPlay);
+        for(JButton button2 : buttons) {
+            if(button2.getText().equals("")) {
+                button2.setText(String.valueOf(numberInPlay));
+            }
+        }
+        if (logic.validMove(numberInPlay)){
+            button.setText("");
+        }
+        int emptyTile;
+
+
 
         //Tillfälliga tskrifter för att kontrollera att det funkar:
-        System.out.println(numberInPlay);
-        System.out.println(validMove);
+        //System.out.println(numberInPlay);
+        //System.out.println(validMove);
 
         //Vad göra med ValidMove?
 
