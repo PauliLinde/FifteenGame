@@ -23,6 +23,8 @@ public class FifteenGameBoard extends JFrame {
     JLabel messageLabel = new JLabel("");
     JLabel counterLabel = new JLabel("");
 
+    JLabel winnerLabel = new JLabel("You won!");
+
     LinkedList<JButton> buttons = new LinkedList<>();
 
     FifteenGameBoard(boolean easyWin) {
@@ -57,6 +59,7 @@ public class FifteenGameBoard extends JFrame {
 
     }
     public void moveAction(JButton button) {
+        logic.countMoves();
         counterLabel.setText("Moves: " + logic.getCounter());
 
         if (button.getText() != null) {
@@ -78,6 +81,8 @@ public class FifteenGameBoard extends JFrame {
     public void newGameAction() {
         logic = new Logic(easyWin);
 
+        buttonPanel.removeAll();
+        messageLabel.setText("");
         counterLabel.setText("");
 
         //Här sätter jag actionlistner och gör lambda-anrop till metoden moveAction(button)
@@ -111,8 +116,9 @@ public class FifteenGameBoard extends JFrame {
         //visa winnerLabel
         for(JButton button : buttons) {
             button.removeActionListener(l -> moveAction(button));
+            buttonPanel.removeAll();
+            buttonPanel.add(winnerLabel);
             messageLabel.setText(" You won!");
-            counterLabel.setText("");
         }
 
         buttonPanel.revalidate();
