@@ -43,7 +43,6 @@ public class Logic {
         Collections.shuffle(tilesList);
     }
 
-    //Metod för att hitta index av tomma rutan      Testat! /Y
     public int findEmptyTile() {
 
         for (Tile tile : tilesList) {
@@ -56,9 +55,8 @@ public class Logic {
             return -1;
     }
 
-    //Obs: Nu tar denna metod enbart in INDEX OF tryckt knapp
     public boolean validMove(int indexPushed) {
-        countMoves();
+
         int indexEmpty = findEmptyTile();
 
         if (indexPushed == (indexEmpty + 1) && indexPushed % 4 != 0 ||
@@ -77,7 +75,6 @@ public class Logic {
         Collections.swap(tilesList, indexPushed, indexEmpty);
     }
 
-    //Metod för att kolla vinst, returnerar boolean     Testat! /Y
     public boolean checkWinning(){
         boolean won = false;
 
@@ -87,21 +84,15 @@ public class Logic {
         return won;
     }
 
-    //Metod för counter av speldrag
     public void countMoves(){
-        counter++;
+        ++counter;
     }
 
-    //För inkapsling
+
     public List<Tile> getTilesList() {
         return tilesList;
     }
-    //För testning
-    public List<Tile> getSolutionList() {
-        return solutionList;
-    }
 
-    //För inkapsling
     public int getCounter() {
         return counter;
     }

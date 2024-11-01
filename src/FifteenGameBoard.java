@@ -7,7 +7,7 @@ public class FifteenGameBoard extends JFrame {
     Logic logic;
     boolean easyWin;
 
-    JPanel panel = new JPanel();
+    JPanel basePanel = new JPanel();
     JPanel labelPanel = new JPanel();
     JPanel tilePanel = new JPanel();
     JPanel newGamePanel = new JPanel();
@@ -23,10 +23,10 @@ public class FifteenGameBoard extends JFrame {
     public FifteenGameBoard(boolean easyWin) {
         this.easyWin = easyWin;
 
-        panel.setLayout(new BorderLayout());
-        panel.add(labelPanel, BorderLayout.NORTH);
-        panel.add(tilePanel, BorderLayout.CENTER);
-        panel.add(newGamePanel, BorderLayout.SOUTH);
+        basePanel.setLayout(new BorderLayout());
+        basePanel.add(labelPanel, BorderLayout.NORTH);
+        basePanel.add(tilePanel, BorderLayout.CENTER);
+        basePanel.add(newGamePanel, BorderLayout.SOUTH);
 
         for (int i = 0; i < 16; i ++){
             JButton newButton = new JButton();
@@ -44,7 +44,7 @@ public class FifteenGameBoard extends JFrame {
         labelPanel.setLayout(new GridLayout(1,2));
         labelPanel.add(messageLabel); labelPanel.add(counterLabel);
 
-        add(panel);
+        add(basePanel);
         setVisible(true);
         pack();
         setLocationRelativeTo(null);
@@ -59,29 +59,33 @@ public class FifteenGameBoard extends JFrame {
             int indexPushed = buttons.indexOf(button);
 
             if (logic.validMove(indexPushed)) {
-                setBoard();
+
                 messageLabel.setText(null);
             }
             else{
                 messageLabel.setText(" Invalid move");
             }
+
         }
         else{
             messageLabel.setText(" Only numbered tiles can be clicked");
         }
+
+        setBoard();
     }
     public void newGameAction() {
         logic = new Logic(easyWin);
 
         tilePanel.removeAll();
         messageLabel.setText(" ");
-        counterLabel.setText(" ");
+        counterLabel.setText("Moves: " + logic.getCounter());;
 
         for(JButton button : buttons) {
             button.setEnabled(true);
             button.addActionListener(l -> moveAction(button));
             tilePanel.add(button);
         }
+
         setBoard();
     }
 
