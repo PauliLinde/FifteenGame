@@ -6,8 +6,6 @@ public class Logic {
     private final List<Integer> tilesList = new LinkedList<>();
     private final List<Integer> solutionList = new LinkedList<>();
 
-    protected int indexPushed;
-    protected int indexEmpty;
     private int counter = 0;
 
 
@@ -54,9 +52,6 @@ public class Logic {
     //Metod för speldrag (knapptryckning)       Delvis testad /Y
     //pushed är nu talet som står i knappen. indexEmpty och indexPusched är idnex of 16 resp. tryckt knapp.
     public void moveTile(int indexPushed, int indexEmpty) {
-        this.indexPushed = indexPushed;
-        this.indexEmpty = indexEmpty;
-
         Collections.swap(tilesList, indexPushed, indexEmpty);
     }
 
@@ -82,14 +77,6 @@ public class Logic {
     //För testning
     public List<Integer> getSolutionList() {
         return solutionList;
-    }
-
-    public int getIndexPushed() {
-        return indexPushed;
-    }
-
-    public int getIndexEmpty() {
-        return indexEmpty;
     }
 
     //För inkapsling
