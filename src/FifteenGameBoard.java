@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 public class FifteenGameBoard extends JFrame {
@@ -17,6 +18,7 @@ public class FifteenGameBoard extends JFrame {
         nineButton = new JButton(), tenButton = new JButton(), elevenButton = new JButton(), twelveButton = new JButton(),
         thirteenButton = new JButton(), fourteenButton = new JButton(), fifteenButton = new JButton(), emptyButton = new JButton();
 
+    ActionListener moveActionListner;
 
     JButton newGameButton = new JButton("New Game");
 
@@ -66,8 +68,10 @@ public class FifteenGameBoard extends JFrame {
     }
     public void newGameAction() {
         logic = new Logic(easyWin);
+
         //Här sätter jag actionlistner och gör lambda-anrop till metoden moveAction(button)
         for(JButton button : buttons) {
+            button.setEnabled(true);
             button.addActionListener(l -> moveAction(button));
             buttonPanel.add(button);
         }
@@ -93,11 +97,10 @@ public class FifteenGameBoard extends JFrame {
     }
     //Metod för win-action
     public void win(){
-        //Test
-        System.out.println("win");
+
         //visa winnerLabel
         for(JButton button : buttons) {
-            button.removeActionListener(l -> moveAction(button));
+            button.setEnabled(false);
         }
 
         buttonPanel.revalidate();
