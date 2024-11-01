@@ -49,9 +49,9 @@ public class FifteenGameBoard extends JFrame {
 
         add(panel);
         setVisible(true);
+        pack();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
 
     }
     public void moveAction(JButton button) {
