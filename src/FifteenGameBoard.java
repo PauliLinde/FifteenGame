@@ -60,7 +60,7 @@ public class FifteenGameBoard extends JFrame {
 
             if (logic.validMove(indexPushed)) {
                 setBoard();
-                messageLabel.setText("");
+                messageLabel.setText(null);
             }
             else{
                 messageLabel.setText(" Invalid move");
@@ -73,8 +73,9 @@ public class FifteenGameBoard extends JFrame {
     public void newGameAction() {
         logic = new Logic(easyWin);
 
-        messageLabel.setText("");
-        counterLabel.setText("");
+        buttonPanel.removeAll();
+        messageLabel.setText(null);
+        counterLabel.setText(null);
 
         for(JButton button : buttons) {
             button.setEnabled(true);
@@ -113,16 +114,19 @@ public class FifteenGameBoard extends JFrame {
             button.setText(null);
             button.setEnabled(false);
         }
-        //visa winnerLabel
-        for(JButton button : buttons) {
-            button.removeActionListener(l -> moveAction(button));
-            buttonPanel.removeAll();
-            buttonPanel.add(winnerLabel);
-            messageLabel.setText(" You won!");
-            winnerLabel.setFont(new Font("Serif", Font.BOLD, 100));
-            winnerLabel.setForeground(Color.RED);
-        }
         buttonPanel.revalidate();
         buttonPanel.repaint();
+
+        Timer timer = new Timer(1000, e -> {
+            buttonPanel.removeAll();
+            buttonPanel.add(winnerLabel);
+            winnerLabel.setFont(new Font("Serif", Font.BOLD, 100));
+            winnerLabel.setForeground(Color.RED);
+        });
+
+        timer.setRepeats(false);
+        timer.start();
+
     }
+
 }
