@@ -76,16 +76,24 @@ public class Logic {
     }
 
     //För inkapsling
-    public int getCounter() {
-        return counter;
-    }
-
-    //För inkapsling
     public List<Integer> getTilesList() {
         return tilesList;
     }
     //För testning
     public List<Integer> getSolutionList() {
         return solutionList;
+    }
+
+    public int getIndexPushed() {
+        return indexPushed;
+    }
+
+    public int getIndexEmpty() {
+        return indexEmpty;
+    }
+
+    //För inkapsling
+    public int getCounter() {
+        return counter;
     }
 }
