@@ -13,11 +13,6 @@ public class FifteenGameBoard extends JFrame {
     JPanel buttonPanel = new JPanel();
     JPanel southPanel = new JPanel();
 
-    JButton oneButton = new JButton(), twoButton = new JButton(), threeButton = new JButton(), fourButton = new JButton(),
-        fiveButton = new JButton(), sixButton = new JButton(), sevenButton = new JButton(), eightButton = new JButton(),
-        nineButton = new JButton(), tenButton = new JButton(), elevenButton = new JButton(), twelveButton = new JButton(),
-        thirteenButton = new JButton(), fourteenButton = new JButton(), fifteenButton = new JButton(), emptyButton = new JButton();
-
     JButton newGameButton = new JButton("New Game");
 
     JLabel messageLabel = new JLabel("");
@@ -36,10 +31,10 @@ public class FifteenGameBoard extends JFrame {
         panel.add(buttonPanel, BorderLayout.CENTER);
         panel.add(southPanel, BorderLayout.SOUTH);
 
-        buttons.add(oneButton); buttons.add(twoButton); buttons.add(threeButton); buttons.add(fourButton);
-        buttons.add(fiveButton); buttons.add(sixButton); buttons.add(sevenButton); buttons.add(eightButton);
-        buttons.add(nineButton); buttons.add(tenButton); buttons.add(elevenButton); buttons.add(twelveButton);
-        buttons.add(thirteenButton); buttons.add(fourteenButton); buttons.add(fifteenButton); buttons.add(emptyButton);
+        for (int i = 0; i < 16; i ++){
+            JButton newButton = new JButton();
+            buttons.add(newButton);
+        }
 
         buttonPanel.setLayout(new GridLayout(4, 4));
         buttonPanel.setPreferredSize(new Dimension(500, 500));
@@ -63,9 +58,9 @@ public class FifteenGameBoard extends JFrame {
         counterLabel.setText("Moves: " + logic.getCounter());
 
         if (button.getText() != null) {
-            int numberInPlay = Integer.parseInt(button.getText());
+            int indexPushed = buttons.indexOf(button);
 
-            if (logic.validMove(numberInPlay)) {
+            if (logic.validMove(indexPushed)) {
                 setBoard();
                 messageLabel.setText("");
             }//else //Visa invalidMoveLabel
@@ -77,7 +72,6 @@ public class FifteenGameBoard extends JFrame {
             messageLabel.setText(" Only numbered tiles can be clicked");
         }
     }
-
     public void newGameAction() {
         logic = new Logic(easyWin);
 
@@ -92,15 +86,19 @@ public class FifteenGameBoard extends JFrame {
             buttonPanel.add(button);
         }
         setBoard();
-
     }
 
     public void setBoard(){
         int i = 0;
         for(JButton button : buttons) {
             button.setText(null);
+            Tile tempTile = logic.getTilesList().get(i);
+            button.setBackground(tempTile.getTileColor());
             if (i != logic.findEmptyTile())
-                button.setText(logic.getTilesList().get(i).toString());
+                button.setText(String.valueOf(tempTile.getTileNumber()));
+                button.setForeground(Color.WHITE);
+                button.setBorder(BorderFactory.createLineBorder(Color.WHITE,1));
+                button.setFont(new Font("Serif", Font.BOLD, 40));
             i++;
         }
         buttonPanel.revalidate();
@@ -113,8 +111,11 @@ public class FifteenGameBoard extends JFrame {
     }
     //Metod för win-action
     public void win(){
-        //Test
-        System.out.println("win");
+        buttons.get(15).setBackground(logic.getTilesList().get(0).getTileColor());
+        for(JButton button : buttons) {
+            button.setText(null);
+            button.setEnabled(false);
+        }
         //visa winnerLabel
         for(JButton button : buttons) {
             button.removeActionListener(l -> moveAction(button));
