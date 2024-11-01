@@ -9,36 +9,36 @@ public class FifteenGameBoard extends JFrame {
 
     JPanel panel = new JPanel();
     JPanel labelPanel = new JPanel();
-    JPanel buttonPanel = new JPanel();
-    JPanel southPanel = new JPanel();
+    JPanel tilePanel = new JPanel();
+    JPanel newGamePanel = new JPanel();
 
     JButton newGameButton = new JButton("New Game");
 
     JLabel messageLabel = new JLabel();
     JLabel counterLabel = new JLabel();
-    JLabel winnerLabel = new JLabel("You won!");
+    JLabel winnerLabel = new JLabel(" You won! ");
 
     LinkedList<JButton> buttons = new LinkedList<>();
 
-    FifteenGameBoard(boolean easyWin) {
+    public FifteenGameBoard(boolean easyWin) {
         this.easyWin = easyWin;
 
         panel.setLayout(new BorderLayout());
         panel.add(labelPanel, BorderLayout.NORTH);
-        panel.add(buttonPanel, BorderLayout.CENTER);
-        panel.add(southPanel, BorderLayout.SOUTH);
+        panel.add(tilePanel, BorderLayout.CENTER);
+        panel.add(newGamePanel, BorderLayout.SOUTH);
 
         for (int i = 0; i < 16; i ++){
             JButton newButton = new JButton();
             buttons.add(newButton);
         }
 
-        buttonPanel.setLayout(new GridLayout(4, 4));
-        buttonPanel.setPreferredSize(new Dimension(500, 500));
+        tilePanel.setLayout(new GridLayout(4, 4));
+        tilePanel.setPreferredSize(new Dimension(500, 500));
 
-        southPanel.setLayout(new FlowLayout());
+        newGamePanel.setLayout(new FlowLayout());
 
-        southPanel.add(newGameButton);
+        newGamePanel.add(newGameButton);
         newGameButton.addActionListener(l -> newGameAction());
 
         labelPanel.setLayout(new GridLayout(1,2));
@@ -73,14 +73,14 @@ public class FifteenGameBoard extends JFrame {
     public void newGameAction() {
         logic = new Logic(easyWin);
 
-        buttonPanel.removeAll();
-        messageLabel.setText(null);
-        counterLabel.setText(null);
+        tilePanel.removeAll();
+        messageLabel.setText(" ");
+        counterLabel.setText(" ");
 
         for(JButton button : buttons) {
             button.setEnabled(true);
             button.addActionListener(l -> moveAction(button));
-            buttonPanel.add(button);
+            tilePanel.add(button);
         }
         setBoard();
     }
@@ -101,8 +101,8 @@ public class FifteenGameBoard extends JFrame {
                 button.setText(String.valueOf(tempTile.getTileNumber()));
             i++;
         }
-        buttonPanel.revalidate();
-        buttonPanel.repaint();
+        tilePanel.revalidate();
+        tilePanel.repaint();
 
         if (logic.checkWinning())
             win();
@@ -114,19 +114,16 @@ public class FifteenGameBoard extends JFrame {
             button.setText(null);
             button.setEnabled(false);
         }
-        buttonPanel.revalidate();
-        buttonPanel.repaint();
+        tilePanel.revalidate();
+        tilePanel.repaint();
 
         Timer timer = new Timer(1000, e -> {
-            buttonPanel.removeAll();
-            buttonPanel.add(winnerLabel);
+            tilePanel.removeAll();
+            tilePanel.add(winnerLabel);
             winnerLabel.setFont(new Font("Serif", Font.BOLD, 100));
             winnerLabel.setForeground(Color.RED);
         });
-
         timer.setRepeats(false);
         timer.start();
-
     }
-
 }
