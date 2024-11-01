@@ -53,11 +53,6 @@ public class Logic {
                 return tilesList.indexOf(tile);
             }
         }
-        /* claude säger men ovan funkar ju!
-        for (int i = 0; i < tileList.size(); i++){
-            if (tilesList.get(i).getTileNumber() == 16)
-                return i;
-        } */
             return -1;
     }
 
