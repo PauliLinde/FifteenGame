@@ -18,7 +18,10 @@ public class FifteenGameBoard extends JFrame {
 
 
     JButton newGameButton = new JButton("New Game");
+
     JLabel winnerLabel = new JLabel("You won!");
+    JLabel invalidMoveLabel = new JLabel("Invalid move");
+    JLabel pushedEmptyLabel = new JLabel("Only numbered tiles can be clicked.");
 
     LinkedList<JButton> buttons = new LinkedList<>();
 
@@ -56,14 +59,14 @@ public class FifteenGameBoard extends JFrame {
 
     }
     public void moveAction(JButton button) {
-        //Hämta värde och kontrolera om värdet är ok:
-        int numberInPlay = Integer.parseInt(button.getText());
 
-        if (logic.validMove(numberInPlay)) {
-            setBoard();
-        }else{
-            //invalid move
-        }
+        if (button.getText() != null) {
+            int numberInPlay = Integer.parseInt(button.getText());
+
+            if (logic.validMove(numberInPlay)) {
+                setBoard();
+            }//else //Visa invalidMoveLabel
+        }//else // Visa pushedEmptyLabel
     }
     public void newGameAction() {
         logic = new Logic(easyWin);
@@ -82,5 +85,18 @@ public class FifteenGameBoard extends JFrame {
         }
         buttonPanel.revalidate();
         buttonPanel.repaint();
+
+        if (logic.checkWinning()){
+            //Anropa vinstmetod?
+            // win();
+        }
+    }
+    //Metod för win-action
+    public void win(){
+        //visa winnerLabel
+        for(JButton button : buttons) {
+            button.removeActionListener(l -> moveAction(button));
+        }
+
     }
 }
