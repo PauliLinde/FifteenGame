@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 public class FifteenGameBoard extends JFrame {
