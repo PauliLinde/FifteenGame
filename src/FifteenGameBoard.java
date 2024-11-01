@@ -98,11 +98,10 @@ public class FifteenGameBoard extends JFrame {
     //Metod för win-action
     public void win(){
 
-        //visa winnerLabel
         for(JButton button : buttons) {
             button.setEnabled(false);
         }
-
+        //visa winnerLabel
         buttonPanel.revalidate();
         buttonPanel.repaint();
 
