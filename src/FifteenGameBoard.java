@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 public class FifteenGameBoard extends JFrame {
@@ -75,17 +76,17 @@ public class FifteenGameBoard extends JFrame {
     }
     public void newGameAction() {
         logic = new Logic(easyWin);
-
         tilePanel.removeAll();
         messageLabel.setText(" ");
         counterLabel.setText("Moves: 0");;
 
         for(JButton button : buttons) {
+            for (ActionListener al : button.getActionListeners())
+                button.removeActionListener(al);
             button.setEnabled(true);
             button.addActionListener(l -> moveAction(button));
             tilePanel.add(button);
         }
-
         setBoard();
     }
 
@@ -118,6 +119,7 @@ public class FifteenGameBoard extends JFrame {
             button.setText(null);
             button.setEnabled(false);
         }
+
         tilePanel.revalidate();
         tilePanel.repaint();
 
@@ -126,6 +128,9 @@ public class FifteenGameBoard extends JFrame {
             tilePanel.add(winnerLabel);
             winnerLabel.setFont(new Font("Serif", Font.BOLD, 100));
             winnerLabel.setForeground(Color.RED);
+
+            tilePanel.revalidate();
+            tilePanel.repaint();
         });
         timer.setRepeats(false);
         timer.start();

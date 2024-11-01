@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Logic {
-    //Listorna består av Tiles
+
     private final List<Tile> tilesList = new LinkedList<>();
     private final List<Tile> solutionList = new LinkedList<>();
 
@@ -48,7 +48,6 @@ public class Logic {
         for (Tile tile : tilesList) {
             if (tile.getTileNumber() == 16) {
 
-                System.out.println(tilesList.indexOf(tile));
                 return tilesList.indexOf(tile);
             }
         }
@@ -88,10 +87,6 @@ public class Logic {
         counter++;
     }
 
-    public void resetCounter() {
-        this.counter = 0;
-    }
-
     public List<Tile> getTilesList() {
         return tilesList;
     }
@@ -99,5 +94,4 @@ public class Logic {
     public int getCounter() {
         return counter;
     }
-
 }
