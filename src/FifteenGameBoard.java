@@ -4,21 +4,21 @@ import java.util.LinkedList;
 
 public class FifteenGameBoard extends JFrame {
 
-    Logic logic;
-    boolean easyWin;
+    private Logic logic;
+    private boolean easyWin;
 
-    JPanel panel = new JPanel();
-    JPanel labelPanel = new JPanel();
-    JPanel buttonPanel = new JPanel();
-    JPanel southPanel = new JPanel();
+    private final JPanel panel = new JPanel();
+    private final JPanel labelPanel = new JPanel();
+    private final JPanel buttonPanel = new JPanel();
+    private final JPanel southPanel = new JPanel();
 
-    JButton newGameButton = new JButton("New Game");
+    private final JButton newGameButton = new JButton("New Game");
 
-    JLabel messageLabel = new JLabel();
-    JLabel counterLabel = new JLabel();
-    JLabel winnerLabel = new JLabel("You won!");
+    private final JLabel messageLabel = new JLabel();
+    private final JLabel counterLabel = new JLabel();
+    private final JLabel winnerLabel = new JLabel("You won!");
 
-    LinkedList<JButton> buttons = new LinkedList<>();
+    private final LinkedList<JButton> buttons = new LinkedList<>();
 
     FifteenGameBoard(boolean easyWin) {
         this.easyWin = easyWin;
