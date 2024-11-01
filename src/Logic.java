@@ -15,19 +15,19 @@ public class Logic {
         for (int i = 1; i <= 16; i++) {
             Tile tile = new Tile(i);
                 if (i == 1 || i == 6 || i == 11){
-                    tile.setTileColor(Color.RED);
+                    tile.setTileColor(Color.RED.darker());
                 }
                 if (i == 2|| i ==  5 || i == 7 || i == 10 || i == 12 || i == 15){
-                    tile.setTileColor(Color.ORANGE);
+                    tile.setTileColor(Color.RED);
                 }
                 if (i == 3|| i ==  8 || i == 9 || i == 14){
-                    tile.setTileColor(Color.YELLOW);
+                    tile.setTileColor(Color.ORANGE);
                 }
                 if (i == 4|| i == 13){
-                    tile.setTileColor(Color.PINK);
+                    tile.setTileColor(Color.YELLOW);
                 }
                 if (i == 16)
-                    tile.setTileColor(Color.DARK_GRAY);
+                    tile.setTileColor(Color.GRAY);
 
             tilesList.add(tile);
             solutionList.add(tile);

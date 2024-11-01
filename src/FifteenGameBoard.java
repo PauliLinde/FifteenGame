@@ -80,6 +80,7 @@ public class FifteenGameBoard extends JFrame {
             if (i != logic.findEmptyTile())
                 button.setText(String.valueOf(tempTile.getTileNumber()));
                 button.setForeground(Color.WHITE);
+                button.setBorder(BorderFactory.createLineBorder(Color.WHITE,1));
                 button.setFont(new Font("Serif", Font.BOLD, 40));
             i++;
         }
@@ -93,7 +94,7 @@ public class FifteenGameBoard extends JFrame {
     }
     //Metod för win-action
     public void win(){
-        buttons.get(15).setBackground(Color.RED);
+        buttons.get(15).setBackground(logic.getTilesList().get(0).getTileColor());
         for(JButton button : buttons) {
             button.setText(null);
             button.setEnabled(false);
