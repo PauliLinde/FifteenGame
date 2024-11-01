@@ -9,15 +9,6 @@ public class Logic {
     private int counter = 0;
 
 
-    //Konstruktor initierar tileslistan och facitlistan och shufflar tileslistan
-    //16 är tom ruta        Testat! /Y
-    public Logic() {
-        for (int i = 1; i <= 16; i++) {
-            tilesList.add(i);
-            solutionList.add(i);
-        }
-        shuffleTiles();
-    }
     //Konstruktor för easy win          Testat! /Y
     public Logic(boolean easyWin) {
         for (int i = 1; i <= 16; i++) {
