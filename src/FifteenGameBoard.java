@@ -19,6 +19,7 @@ public class FifteenGameBoard extends JFrame {
 
     JButton newGameButton = new JButton("New Game");
     JLabel winnerLabel = new JLabel("You won!");
+    JLabel upperLabel = new JLabel("");
 
     LinkedList<JButton> buttons = new LinkedList<>();
 
@@ -59,17 +60,19 @@ public class FifteenGameBoard extends JFrame {
         //Hämta värde och kontrolera om värdet är ok:
         int numberInPlay = Integer.parseInt(button.getText());
         //boolean validMove = logic.validMove(numberInPlay);
-        for(JButton button2 : buttons) {
-            if(button2.getText().equals("")) {
-                button2.setText(String.valueOf(numberInPlay));
-            }
-        }
+
         if (logic.validMove(numberInPlay)){
+            for(JButton button2 : buttons) {
+                if(button2.getText().equals("")) {
+                    button2.setText(String.valueOf(numberInPlay));
+                }
+            }
             button.setText("");
+            upperLabel.setText("Moves: " + logic.getCounter());
         }
-        int emptyTile;
-
-
+        else {
+            upperLabel.setText("Invalid Move!");
+        }
 
         //Tillfälliga tskrifter för att kontrollera att det funkar:
         //System.out.println(numberInPlay);
