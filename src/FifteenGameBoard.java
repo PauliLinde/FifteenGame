@@ -119,6 +119,8 @@ public class FifteenGameBoard extends JFrame {
             buttonPanel.removeAll();
             buttonPanel.add(winnerLabel);
             messageLabel.setText(" You won!");
+            winnerLabel.setFont(new Font("Serif", Font.BOLD, 100));
+            winnerLabel.setForeground(Color.RED);
         }
 
         buttonPanel.revalidate();
