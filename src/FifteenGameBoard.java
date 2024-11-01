@@ -18,13 +18,12 @@ public class FifteenGameBoard extends JFrame {
         nineButton = new JButton(), tenButton = new JButton(), elevenButton = new JButton(), twelveButton = new JButton(),
         thirteenButton = new JButton(), fourteenButton = new JButton(), fifteenButton = new JButton(), emptyButton = new JButton();
 
-    ActionListener moveActionListner;
-
     JButton newGameButton = new JButton("New Game");
 
+    JLabel messageLabel = new JLabel("");
+    JLabel counterLabel = new JLabel("");
+
     JLabel winnerLabel = new JLabel("You won!");
-    JLabel invalidMoveLabel = new JLabel("Invalid move");
-    JLabel pushedEmptyLabel = new JLabel("Only numbered tiles can be clicked.");
 
     LinkedList<JButton> buttons = new LinkedList<>();
 
@@ -49,6 +48,9 @@ public class FifteenGameBoard extends JFrame {
         southPanel.add(newGameButton);
         newGameButton.addActionListener(l -> newGameAction());
 
+        labelPanel.setLayout(new GridLayout(1,2));
+        labelPanel.add(messageLabel); labelPanel.add(counterLabel);
+
         add(panel);
         setVisible(true);
         pack();
@@ -57,17 +59,31 @@ public class FifteenGameBoard extends JFrame {
 
     }
     public void moveAction(JButton button) {
+        logic.countMoves();
+        counterLabel.setText("Moves: " + logic.getCounter());
 
         if (button.getText() != null) {
             int numberInPlay = Integer.parseInt(button.getText());
 
             if (logic.validMove(numberInPlay)) {
                 setBoard();
+                messageLabel.setText("");
             }//else //Visa invalidMoveLabel
+            else{
+                messageLabel.setText(" Invalid move");
+            }
         }//else // Visa pushedEmptyLabel
+        else{
+            messageLabel.setText(" Only numbered tiles can be clicked");
+        }
     }
+
     public void newGameAction() {
         logic = new Logic(easyWin);
+
+        buttonPanel.removeAll();
+        messageLabel.setText("");
+        counterLabel.setText("");
 
         //Här sätter jag actionlistner och gör lambda-anrop till metoden moveAction(button)
         for(JButton button : buttons) {
@@ -97,11 +113,18 @@ public class FifteenGameBoard extends JFrame {
     }
     //Metod för win-action
     public void win(){
-
-        for(JButton button : buttons) {
-            button.setEnabled(false);
-        }
+        //Test
+        System.out.println("win");
         //visa winnerLabel
+        for(JButton button : buttons) {
+            button.removeActionListener(l -> moveAction(button));
+            buttonPanel.removeAll();
+            buttonPanel.add(winnerLabel);
+            messageLabel.setText(" You won!");
+            winnerLabel.setFont(new Font("Serif", Font.BOLD, 100));
+            winnerLabel.setForeground(Color.RED);
+        }
+
         buttonPanel.revalidate();
         buttonPanel.repaint();
 

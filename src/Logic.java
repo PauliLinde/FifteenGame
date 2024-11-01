@@ -34,7 +34,6 @@ public class Logic {
     //Metod för att kolla att draget är möjlig      Delvis testad /Y
     //Obs: Nu tar denna metod enbart in INDEX OF 16 (tom) och tryckt knapp.
     public boolean validMove(int pushed) {
-        countMoves();
         int indexEmpty = findEmptyTile();
         int indexPushed = tilesList.indexOf(pushed);
 
