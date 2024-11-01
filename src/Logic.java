@@ -6,10 +6,12 @@ public class Logic {
     private final List<Integer> tilesList = new LinkedList<>();
     private final List<Integer> solutionList = new LinkedList<>();
 
+    protected int indexPushed;
+    protected int indexEmpty;
     private int counter = 0;
 
 
-    //Konstruktor för easy win          Testat! /Y
+    //Konstruktor för easy win också         Testat! /Y
     public Logic(boolean easyWin) {
         for (int i = 1; i <= 16; i++) {
             tilesList.add(i);
@@ -38,10 +40,10 @@ public class Logic {
         int indexEmpty = findEmptyTile();
         int indexPushed = tilesList.indexOf(pushed);
 
-        if (pushed == (indexEmpty + 1) && indexPushed % 4 != 0 ||
-                pushed == (indexEmpty - 1) && indexPushed % 4 != 3 ||
-                pushed == (indexEmpty - 4) && indexPushed >= 4 ||
-                pushed == (indexEmpty + 4) && indexPushed <= 11) {
+        if (indexPushed == (indexEmpty + 1) && indexPushed % 4 != 0 ||
+                indexPushed == (indexEmpty - 1) && indexPushed % 4 != 3 ||
+                indexPushed == (indexEmpty - 4) && indexPushed >= 4 ||
+                indexPushed == (indexEmpty + 4) && indexPushed <= 11) {
 
             moveTile(indexPushed, indexEmpty);
             return true;
@@ -52,6 +54,9 @@ public class Logic {
     //Metod för speldrag (knapptryckning)       Delvis testad /Y
     //pushed är nu talet som står i knappen. indexEmpty och indexPusched är idnex of 16 resp. tryckt knapp.
     public void moveTile(int indexPushed, int indexEmpty) {
+        this.indexPushed = indexPushed;
+        this.indexEmpty = indexEmpty;
+
         Collections.swap(tilesList, indexPushed, indexEmpty);
     }
 
