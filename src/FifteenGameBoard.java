@@ -8,6 +8,7 @@ public class FifteenGameBoard extends JFrame {
     boolean easyWin;
 
     JPanel panel = new JPanel();
+    JPanel labelPanel = new JPanel();
     JPanel buttonPanel = new JPanel();
     JPanel southPanel = new JPanel();
 
@@ -28,9 +29,10 @@ public class FifteenGameBoard extends JFrame {
     FifteenGameBoard(boolean easyWin) {
         this.easyWin = easyWin;
 
-        //Vi har två paneler, en med spelknappar, och en med nytt spel-knappen
+        //Vi har tre paneler, en med labels, en med spelknappar, och en med nytt spel-knappen
         panel.setLayout(new BorderLayout());
-        panel.add(buttonPanel, BorderLayout.NORTH);
+        panel.add(labelPanel, BorderLayout.NORTH);
+        panel.add(buttonPanel, BorderLayout.CENTER);
         panel.add(southPanel, BorderLayout.SOUTH);
 
         buttons.add(oneButton); buttons.add(twoButton); buttons.add(threeButton); buttons.add(fourButton);
