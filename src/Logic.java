@@ -131,7 +131,6 @@ public class Logic {
         if (!even && inversions % 2 == 0){
                     isSolvable = true;
         }
-        System.out.println(isSolvable);
         return isSolvable;
     }
 
