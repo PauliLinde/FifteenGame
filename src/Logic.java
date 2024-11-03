@@ -7,7 +7,6 @@ public class Logic {
 
     private final List<Tile> tilesList = new LinkedList<>();
     private final List<Tile> solutionList = new LinkedList<>();
-
     private int counter = 0;
 
     public Logic(boolean easyWin) {
@@ -98,7 +97,6 @@ public class Logic {
         int indexEmpty = findEmptyTile();
         int inversions = 0;
 
-        //skapar en tillfällig int-array med tilenumbers pga känns smidigare.
         for (int i = 0; i < solvable.length; i++) {
             Tile tile = tilesList.get(i);
             solvable[i] = tile.getTileNumber();
@@ -116,11 +114,9 @@ public class Logic {
         int rowFromBottom = 3 - (indexEmpty/4);
         boolean even = (rowFromBottom % 2 == 0);
 
-        //even row from bottom, inversions odd = solvable
         if (even && inversions % 2 != 0 )
                     isSolvable = true;
 
-        //odd row from bottom, inversions even = solvable
         if (!even && inversions % 2 == 0){
                     isSolvable = true;
         }
