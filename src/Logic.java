@@ -3,14 +3,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
-/*
-    OBS: Denna klass innehåller metoden public boolean checkSolvable() innehåller kod som bygger på kod och logik
-    hämtad från Geeks for Geeks: How to check if an instance puzzle is solvable
-    https://www.geeksforgeeks.org/check-instance-15-puzzle-solvable/
-    och Claude, en AI-assistant från Anthropic (conversation date: November 2, 2024)
-    Datum: 2024-11-02
-*/
 public class Logic {
 
     private final List<Tile> tilesList = new LinkedList<>();
@@ -106,6 +98,7 @@ public class Logic {
         int indexEmpty = findEmptyTile();
         int inversions = 0;
 
+        //skapar en tillfällig int-array med tilenumbers pga känns smidigare.
         for (int i = 0; i < solvable.length; i++) {
             Tile tile = tilesList.get(i);
             solvable[i] = tile.getTileNumber();
