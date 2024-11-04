@@ -88,8 +88,6 @@ public class Logic {
         OBS: Denna metod innehåller kod som bygger på kod och logik
         hämtad från Geeks for Geeks: How to check if an instance puzzle is solvable
         https://www.geeksforgeeks.org/check-instance-15-puzzle-solvable/
-        och Claude, en AI-assistant från Anthropic (conversation date: November 2, 2024)
-        Datum: 2024-11-02
     */
     public boolean checkSolvable(){
         boolean isSolvable = false;
@@ -111,8 +109,8 @@ public class Logic {
             }
         }
 
-        int rowFromBottom = 3 - (indexEmpty/4);
-        boolean even = (rowFromBottom % 2 == 0);
+        int row = (indexEmpty/4);
+        boolean even = (row % 2 == 0);
 
         if (even && inversions % 2 != 0 )
                     isSolvable = true;
